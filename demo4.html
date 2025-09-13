@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大学生创业财政支持模拟平台 (AI增强版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        /* Simple spinner for loading state */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border-left-color: #09f;
+            animation: spin 1s ease infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-gray-800">
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">大学生创业财政支持模拟平台</h1>
+            <p class="text-lg text-gray-600 mt-2">一个为梦想加速的AI政策模拟沙盘</p >
+        </header>
+
+        <main class="space-y-12">
+            <!-- Simulation Input Section -->
+            <section class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-semibold mb-4 border-b pb-2">1. 输入你的创业项目信息</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="capital" class="block text-sm font-medium text-gray-700 mb-1">启动资金 (元)</label>
+                        <input type="number" id="capital" value="100000" class="w-full bg-white border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2">
+                    </div>
+                    <div>
+                        <label for="industry" class="block text-sm font-medium text-gray-700 mb-1">所属行业</label>
+                        <input type="text" id="industry" value="文化创意" class="w-full bg-white border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="region" class="block text-sm font-medium text-gray-700 mb-1">所在地区</label>
+                        <input type="text" id="region" value="上海" class="w-full bg-white border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2">
+                    </div>
+                </div>
+                <div class="text-center mt-6">
+                    <button id="simulateBtn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300 shadow-md flex items-center justify-center mx-auto">
+                        <span id="simulateBtnText">✨ 开始智能模拟</span>
+                        <div id="simulateSpinner" class="spinner hidden"></div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- AI Q&A Section -->
+            <section class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-semibold mb-4 border-b pb-2">2. AI 政策问答与解析</h2>
+                <div id="qa-container" class="bg-gray-50 p-4 rounded-lg space-y-4">
+                    <!-- User Question -->
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold shrink-0">你</div>
+                        <div class="bg-blue-100 text-gray-800 p-3 rounded-lg max-w-md">
+                            <p id="user-question">请根据上方输入的信息，为我分析可以申请哪些政策支持。</p >
+                        </div>
+                    </div>
+                    <!-- AI Answer -->
+                    <div id="ai-answer-container" class="flex items-start gap-3 justify-end">
+                        <div class="bg-gray-200 p-3 rounded-lg max-w-md text-left">
+                            <p class="font-semibold mb-2">智能政策顾问 (AI):</p >
+                            <div id="ai-answer-text"><p>你好！请在上方输入你的项目信息，然后点击"开始智能模拟"按钮，我将为你进行实时分析。</p ></div>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold shrink-0">AI</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Forecast Section -->
+            <section class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-semibold mb-4 border-b pb-2">3. 财务预测与风险提示</h2>
+                <div class="text-center">
+                    <p class="text-gray-600 mb-4">下图展示了在获得"首次创业一次性补贴"后，你的项目第一年末的现金流对比情况。</p >
+                    < img src="https://placehold.co/600x350/e9e9f9/4a5568?text=有无补贴年末现金流对比图" alt="财务预测对比图" class="w-full max-w-2xl mx-auto rounded-lg shadow-md">
+                    <div id="financial-analysis-container" class="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <p class="text-green-800"><strong class="font-semibold">结论：</strong> 仅仅利用一项政策，就让你的年末可用资金增加了 <span class="text-xl font-bold">10,000</span> 元，有效提升了项目抗风险能力。</p >
+                    </div>
+                    <div class="text-center mt-6">
+                        <button id="analyzeBtn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition duration-300 shadow-md flex items-center justify-center mx-auto">
+                            <span id="analyzeBtnText">✨ 生成AI财务分析</span>
+                            <div id="analyzeSpinner" class="spinner hidden"></div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12">
+            <p class="text-gray-500">&copy; 2025 大学生创业财政支持模拟平台 - 创新创业大赛 Demo</p >
+        </footer>
+    </div>
+
+    <script type="module">
+        // -- DOM Elements --
+        const simulateBtn = document.getElementById('simulateBtn');
+        const simulateBtnText = document.getElementById('simulateBtnText');
+        const simulateSpinner = document.getElementById('simulateSpinner');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const analyzeBtnText = document.getElementById('analyzeBtnText');
+        const analyzeSpinner = document.getElementById('analyzeSpinner');
+        const capitalInput = document.getElementById('capital');
+        const industryInput = document.getElementById('industry');
+        const regionInput = document.getElementById('region');
+        const userQuestion = document.getElementById('user-question');
+        const aiAnswerText = document.getElementById('ai-answer-text');
+        const financialAnalysisContainer = document.getElementById('financial-analysis-container');
+
+        // =================================================================
+        // 【核心修改】: 使用 DeepSeek API
+        // =================================================================
+        // -- DeepSeek API Configuration --
+        const API_KEY = "sk-8dc826f0818b46088450e6dabfe5a785"; // !!!重要: 请替换成你自己的API Key!!!
+        const API_URL = "https://api.deepseek.com/v1/chat/completions";
+
+        // Simplified policy database for the demo
+        const POLICY_DATABASE = `
+1. **首次创业一次性补贴**:
+   * 适用区域: 全国多地（如上海、深圳）
+   * 核心条件: 毕业5年内高校毕业生; 首次在当地创办小微企业; 正常经营6个月以上。
+   * 补贴详情: 补贴 8,000 - 15,000 元不等，一次性发放。
+
+2. **小微企业普惠性税收减免**:
+   * 适用区域: 全国
+   * 核心条件: 年应纳税所得额不超过100万元; 从事国家非限制和禁止行业。
+   * 补贴详情: 大幅降低企业所得税，实际税负约5%。
+
+3. **创业担保贷款及贴息**:
+   * 适用区域: 全国
+   * 核心条件: 符合条件的高校毕业生等。
+   * 补贴详情: 个人贷款额度最高20万元，政府对贷款利息进行补贴。
+
+4. **创业带动就业补贴**:
+   * 适用区域: 全国多地
+   * 核心条件: 初创企业; 招用毕业2年内高校毕业生。
+   * 补贴详情: 每招用一人，给予企业 2,000 - 5,000 元的一次性补贴。
+`;
+
+        async function callDeepSeek(prompt) {
+            try {
+                const payload = {
+                    model: "deepseek-chat",
+                    messages: [
+                        {
+                            role: "system",
+                            content: "你是一名专业、热情的大学生创业政策顾问和财务分析师。请根据用户提供的信息和政策库，用清晰、有条理、专业且亲切的口吻回答问题。分析政策时请逐条说明并给出理由。进行财务分析时请指出直接影响、战略意义和风险点。"
+                        },
+                        {
+                            role: "user",
+                            content: prompt
+                        }
+                    ],
+                    max_tokens: 2000,
+                    temperature: 0.7,
+                };
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API请求失败，状态码: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.choices[0]?.message?.content || "DeepSeek未能生成有效回复，请稍后重试。";
+
+            } catch (error) {
+                console.error("调用DeepSeek API出错:", error);
+                return `请求出错：${error.message}。请检查控制台获取更多信息。`;
+            }
+        }
+        // =================================================================
+
+        /**
+         * Sets the loading state for a button.
+         * @param {HTMLElement} btnTextEl - The button text element.
+         * @param {HTMLElement} spinnerEl - The spinner element.
+         * @param {boolean} isLoading - The loading state.
+         */
+        function setButtonLoading(btnTextEl, spinnerEl, isLoading) {
+            if (isLoading) {
+                btnTextEl.classList.add('hidden');
+                spinnerEl.classList.remove('hidden');
+            } else {
+                btnTextEl.classList.remove('hidden');
+                spinnerEl.classList.add('hidden');
+            }
+        }
+
+        // -- Event Listeners --
+
+        // 1. Handle Policy Simulation
+        simulateBtn.addEventListener('click', async () => {
+            setButtonLoading(simulateBtnText, simulateSpinner, true);
+            aiAnswerText.innerHTML = '<div class="spinner mx-auto"></div>';
+
+            const capital = capitalInput.value;
+            const industry = industryInput.value;
+            const region = regionInput.value;
+
+            const userSituation = `我是一名准备创业的大学生，项目基本情况如下：启动资金${capital}元，所属行业是"${industry}"，计划在"${region}"发展。`;
+            userQuestion.textContent = userSituation;
+
+            const prompt = `请根据以下政策库信息，为一位创业者分析他可能申请到的政策。
+
+**政策库:**
+${POLICY_DATABASE}
+
+**创业者情况:**
+${userSituation}
+
+请以亲切、专业的口吻，逐条分析他最可能符合的2-3项政策，并说明理由。最后给一句鼓励的话。`;
+
+            const responseText = await callDeepSeek(prompt);
+
+            // Basic markdown-to-html conversion for lists and bolding
+            let htmlResponse = responseText
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n\s*\d\.\s/g, '<br><br>$&')
+                .replace(/\n/g, '<br>');
+
+            aiAnswerText.innerHTML = htmlResponse;
+            setButtonLoading(simulateBtnText, simulateSpinner, false);
+        });
+
+        // 2. Handle Financial Analysis
+        analyzeBtn.addEventListener('click', async () => {
+            setButtonLoading(analyzeBtnText, analyzeSpinner, true);
+            financialAnalysisContainer.innerHTML = '<div class="spinner mx-auto"></div>';
+
+            const prompt = `你是一位面向大学生的财务分析师。一张财务预测图表显示，一个初始资金为10万元的创业项目，在没有补贴的情况下，一年后年末现金为16万元。在获得了1万元的"首次创业一次性补贴"后，一年后年末现金变为17万元。
+
+请根据以上信息，生成一段专业的财务分析结论，包括：
+1. 明确指出这项补贴对项目现金流的直接积极影响。
+2. 点出这笔额外资金（虽然绝对值不大）在创业初期的重要战略意义（例如：抗风险、抓机遇）。
+3. 提出一个创业者需要注意的关键财务风险点。
+4. 整体风格要专业、精炼，并带有鼓励性。`;
+
+            const responseText = await callDeepSeek(prompt);
+
+            let htmlResponse = responseText
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-green-900">$1</strong>')
+                .replace(/\n/g, '<br>');
+
+            financialAnalysisContainer.innerHTML = `<div class="text-green-800">${htmlResponse}</div>`;
+            setButtonLoading(analyzeBtnText, analyzeSpinner, false);
+        });
+
+    </script>
+</body>
+</html>
